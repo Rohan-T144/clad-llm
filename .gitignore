@@ -1,4 +1,5 @@
 clad/
 llm_c/
 build/
-
+.cache/
+compile_commands.json

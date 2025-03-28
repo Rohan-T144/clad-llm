@@ -2,6 +2,8 @@
 
 // Based on this tensor implementation: https://github.com/GaoYusong/llm.cpp
 
+#include <omp.h>
+
 #include <algorithm>
 #include <array>
 #include <cassert>

@@ -1,6 +1,6 @@
 # Enhancing LLM Training Efficiency with Clad for Automatic Differentiation in C++
 
-**GSoC 2024 Project under CERN-HSF**
+**GSoC 2025 Project under CERN-HSF**
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -8,7 +8,7 @@
 
 Modern LLM training often relies on Python-based deep learning frameworks. While flexible, these frameworks can introduce performance bottlenecks due to interpreted execution and dynamic computation graphs.  This project explores a C++-centric approach, using Clad, a Clang-based Automatic Differentiation (AD) plugin, to perform automatic differentiation at the compiler level. This has the potential to reduce computational overhead, improve memory efficiency, and lead to more performant and resource-conscious LLM training workflows.
 
-At the heart of this project is **`cladtorch`**, a custom C++ tensor library being developed specifically for this purpose. Inspired by minimalist projects like `llm.c` and `tinytorch`, `cladtorch` is designed to be Clad-friendly, enabling seamless integration of compiler-based AD into LLM training.
+At the heart of this project is **`cladtorch`**, a custom C++ tensor library being developed specifically for this purpose. Inspired by minimalist projects like `llm.c` and `tinytorch`, `cladtorch` is designed to be Clad-friendly, enabling integration of compiler-based AD into LLM training.
 
 ## Methodology (High-Level)
 

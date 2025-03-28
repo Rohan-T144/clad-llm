@@ -7,14 +7,10 @@ LDLIBS = -lm
 INCLUDES = 
 CFLAGS_COND = -march=native
 
-# Find nvcc
 SHELL_UNAME = $(shell uname)
 REMOVE_FILES = rm -f
 OUTPUT_FILE = -o $@
 CUDA_OUTPUT_FILE = -o $@
-
-# Default O3 CPU optimization level for NVCC (0 for fastest compile time)
-FORCE_NVCC_O ?= 3
 
 # We will place .o files in the `build` directory (create it if it doesn't exist)
 BUILD_DIR = build
@@ -125,22 +121,6 @@ else
   endif
 endif
 
-# Attempt to find and include OpenMPI on the system
-OPENMPI_DIR ?= /usr/lib/x86_64-linux-gnu/openmpi
-OPENMPI_LIB_PATH = $(OPENMPI_DIR)/lib/
-OPENMPI_INCLUDE_PATH = $(OPENMPI_DIR)/include/
-ifeq ($(NO_USE_MPI), 1)
-  $(info → MPI is manually disabled)
-else ifeq ($(shell [ -d $(OPENMPI_LIB_PATH) ] && [ -d $(OPENMPI_INCLUDE_PATH) ] && echo "exists"), exists)
-  $(info ✓ MPI enabled)
-  NVCC_INCLUDES += -I$(OPENMPI_INCLUDE_PATH)
-  NVCC_LDFLAGS += -L$(OPENMPI_LIB_PATH)
-  NVCC_LDLIBS += -lmpi
-  NVCC_FLAGS += -DUSE_MPI
-else
-  $(info ✗ MPI not found)
-endif
-
 # Precision settings, default to bf16 but ability to override
 PRECISION ?= BF16
 VALID_PRECISIONS := FP32 FP16 BF16
@@ -156,7 +136,7 @@ else
 endif
 
 # PHONY means these targets will always be executed
-.PHONY: all train_gpt2 test_gpt2 clad_gpt2
+.PHONY: all train_gpt2
 
 # Add targets
 TARGETS = train_gpt2
@@ -165,7 +145,7 @@ $(info ---------------------------------------------)
 
 all: $(TARGETS)
 
-train_gpt2: train_gpt2.cpp
+train_gpt2: gpt2.cpp
 	$(CXX) $(CXXFLAGS) $(CFLAGS) $(INCLUDES) $(LDFLAGS) $^ $(LDLIBS) $(OUTPUT_FILE)
 
 clean:
